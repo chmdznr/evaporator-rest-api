@@ -1,0 +1,38 @@
+basePath: /rest/api
+definitions:
+  reqresp.SuccessResponse:
+    properties:
+      data: {}
+      message:
+        type: string
+      status:
+        type: string
+    type: object
+host: api.yourwebsite.com
+info:
+  contact:
+    email: pai.joe@wedibojone.com
+    name: Pai Joe
+  description: REST API boilerplate with Fiber
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: REST API boilerplate with Fiber
+  version: 2024.07.02.1
+paths:
+  /ping:
+    get:
+      consumes:
+      - application/json
+      description: Get ping message to check if server is alive
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/reqresp.SuccessResponse'
+      summary: Get ping message
+      tags:
+      - Ping
+swagger: "2.0"

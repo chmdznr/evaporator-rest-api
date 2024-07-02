@@ -1,0 +1,57 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "REST API boilerplate with Fiber",
+        "title": "REST API boilerplate with Fiber",
+        "contact": {
+            "name": "Pai Joe",
+            "email": "pai.joe@wedibojone.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "2024.07.02.1"
+    },
+    "host": "api.yourwebsite.com",
+    "basePath": "/rest/api",
+    "paths": {
+        "/ping": {
+            "get": {
+                "description": "Get ping message to check if server is alive",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ping"
+                ],
+                "summary": "Get ping message",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.SuccessResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "reqresp.SuccessResponse": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
