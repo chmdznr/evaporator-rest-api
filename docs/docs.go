@@ -22,6 +22,120 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/eva-cv": {
+            "post": {
+                "description": "Create a new record for evaporator CV data",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Evaporator"
+                ],
+                "summary": "Create a new record for evaporator CV data",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Trial Code",
+                        "name": "trial_code",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "enum": [
+                            "image",
+                            "video"
+                        ],
+                        "type": "string",
+                        "description": "Data Type (image or video)",
+                        "name": "data_type",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Notes",
+                        "name": "notes",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "file",
+                        "description": "File",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/eva-data": {
+            "post": {
+                "description": "Create a new record for evaporator sensor data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Evaporator"
+                ],
+                "summary": "Create a new record for evaporator sensor data",
+                "parameters": [
+                    {
+                        "description": "Data Sensor pada evaporator",
+                        "name": "evaData",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.EvaData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/reqresp.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/ping": {
             "get": {
                 "description": "Get ping message to check if server is alive",
@@ -47,6 +161,43 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "models.EvaData": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "deleted_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "notes": {
+                    "type": "string"
+                },
+                "thermal": {
+                    "type": "number"
+                },
+                "trial_code": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "reqresp.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
         "reqresp.SuccessResponse": {
             "type": "object",
             "properties": {
@@ -65,11 +216,11 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "2024.07.02.1",
-	Host:             "api.yourwebsite.com",
+	Host:             "eva-admin.msvc.app",
 	BasePath:         "/rest/api",
 	Schemes:          []string{},
-	Title:            "REST API boilerplate with Fiber",
-	Description:      "REST API boilerplate with Fiber",
+	Title:            "REST API for Evaporator Datastore",
+	Description:      "REST API for Evaporator Datastore",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

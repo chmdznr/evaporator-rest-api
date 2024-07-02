@@ -20,9 +20,9 @@ import (
 	"strconv"
 )
 
-// @title REST API boilerplate with Fiber
+// @title REST API for Evaporator Datastore
 // @version 2024.07.02.1
-// @description REST API boilerplate with Fiber
+// @description REST API for Evaporator Datastore
 
 // @contact.name Pai Joe
 // @contact.email pai.joe@wedibojone.com
@@ -30,7 +30,7 @@ import (
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @Host api.yourwebsite.com
+// @Host eva-admin.msvc.app
 // @BasePath /rest/api
 func main() {
 

@@ -1,5 +1,29 @@
 basePath: /rest/api
 definitions:
+  models.EvaData:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      notes:
+        type: string
+      thermal:
+        type: number
+      trial_code:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  reqresp.ErrorResponse:
+    properties:
+      message:
+        type: string
+      status:
+        type: string
+    type: object
   reqresp.SuccessResponse:
     properties:
       data: {}
@@ -8,18 +32,94 @@ definitions:
       status:
         type: string
     type: object
-host: api.yourwebsite.com
+host: eva-admin.msvc.app
 info:
   contact:
     email: pai.joe@wedibojone.com
     name: Pai Joe
-  description: REST API boilerplate with Fiber
+  description: REST API for Evaporator Datastore
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  title: REST API boilerplate with Fiber
+  title: REST API for Evaporator Datastore
   version: 2024.07.02.1
 paths:
+  /eva-cv:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Create a new record for evaporator CV data
+      parameters:
+      - description: Trial Code
+        in: formData
+        name: trial_code
+        required: true
+        type: string
+      - description: Data Type (image or video)
+        enum:
+        - image
+        - video
+        in: formData
+        name: data_type
+        required: true
+        type: string
+      - description: Notes
+        in: formData
+        name: notes
+        type: string
+      - description: File
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/reqresp.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/reqresp.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/reqresp.ErrorResponse'
+      summary: Create a new record for evaporator CV data
+      tags:
+      - Evaporator
+  /eva-data:
+    post:
+      consumes:
+      - application/json
+      description: Create a new record for evaporator sensor data
+      parameters:
+      - description: Data Sensor pada evaporator
+        in: body
+        name: evaData
+        required: true
+        schema:
+          $ref: '#/definitions/models.EvaData'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/reqresp.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/reqresp.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/reqresp.ErrorResponse'
+      summary: Create a new record for evaporator sensor data
+      tags:
+      - Evaporator
   /ping:
     get:
       consumes:
