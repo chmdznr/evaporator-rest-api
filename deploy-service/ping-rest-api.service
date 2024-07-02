@@ -1,5 +1,5 @@
 [Unit]
-Description=Ping REST API Service
+Description=Evaporator REST API Service
 After=network.target
 
 [Service]
@@ -8,7 +8,7 @@ WorkingDirectory=/home/eva-admin/evaporator-rest-api
 User=eva-admin
 Restart=always
 RestartSec=10
-Environment=PORT=8015
+Environment=PORT=8016
 
 [Install]
 WantedBy=multi-user.target
